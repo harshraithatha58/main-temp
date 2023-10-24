@@ -1,5 +1,24 @@
+<?php
+require './_init.php';
+
+if (isset($_POST['LogIn'])) {
+  $eMail = $_POST['eMail'];
+  $PassWord = $_POST['PassWord'];
+  $sql = "select password from `user` where email='$eMail'";
+  $result = mysqli_query($conn, $sql);
+  if (mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      $hashed_password = $row['password'];
+      $password_varification = Password_verify( $password , $hashed_password );
+      $_session_email = $_SESSION['session_email'];
+
+      header ('location: ./dash_index.html');
+  }
+}
+?>
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,24 +58,24 @@
   </div>
 
 
-  
+
   <nav class="site-nav mb-5">
     <div class="pb-2 top-bar mb-3">
       <div class="container">
         <div class="row align-items-center">
 
           <div class="col-6 col-lg-9">
-            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a> 
-            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a> 
-            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a> 
+            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a>
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a>
+            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a>
           </div>
 
           <div class="col-6 col-lg-3 text-right">
-            <a href="login.html" class="small mr-3">
+            <!-- <a href="login.html" class="small mr-3">
               <span class="icon-lock"></span>
               Log In
-            </a>
-            <a href="register.html" class="small">
+            </a> -->
+            <a href="register.php" class="small">
               <span class="icon-person"></span>
               Register
             </a>
@@ -72,15 +91,13 @@
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>
-            <li><a href="elements.html">Elements</a></li>
-            
             <li><a href="staff.html">Our Team</a></li>
             <li><a href="news.html">News</a></li>
             <li><a href="about.html">About</a></li>
             <li class="active"><a href="contact.html">Contact</a></li>
           </ul>
 
-          
+
 
           <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
             <span></span>
@@ -90,7 +107,7 @@
       </div>
     </div>
   </nav>
-  
+
 
   <div class="untree_co-hero inner-page overlay" style="background-image: url('../assets/images/img-school-5-min.jpg');">
     <div class="container">
@@ -116,29 +133,27 @@
 
       <div class="row mb-5 justify-content-center">
         <div class="col-lg-5 mx-auto order-1" data-aos="fade-up" data-aos-delay="200">
-          <form action="" class="form-box">
+          <form action="" method="post" class="form-box">
             <div class="row">
-              <div class="col-12 mb-3" style="height: 12px;">
-              
+              <div class="col-12 mt-3">
               </div>
-            <div class="col-12 mb-3">
-                <input type="email" class="form-control" placeholder="Email" name="email">
+              <div class="col-12 mb-3">
+                <input type="email" class="form-control" placeholder="Email" name="eMail">
               </div>
-            <div class="col-12 mb-3">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+              <div class="col-12 mb-3">
+                <input type="password" class="form-control" placeholder="Password" name="PassWord">
               </div>
-
               <br><br><br><br>
-
               <div class="col-12">
-                <input type="submit" value="Login" class="btn btn-primary" name="login">
+                <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><button type="submit" class="btn btn-secondary" name="LogIn">
+                    Login</button></p>
               </div>
             </div>
           </form>
         </div>
       </div>
 
-      
+
     </div>
   </div> <!-- /.untree_co-section -->
 
@@ -197,30 +212,32 @@
 
       <div class="row mt-5">
         <div class="col-12 text-center">
-          <p>  class="copyright">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by CZMG  BCA College  <!-- License information: https://untree.co/license/ -->
-          </div>
+          <p> class="copyright">Copyright &copy;<script>
+              document.write(new Date().getFullYear());
+            </script>. All Rights Reserved. &mdash; Designed with love by CZMG BCA College <!-- License information: https://untree.co/license/ -->
         </div>
-      </div> <!-- /.container -->
-    </div> <!-- /.site-footer -->
-
-    <div id="overlayer"></div>
-    <div class="loader">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
       </div>
+    </div> <!-- /.container -->
+  </div> <!-- /.site-footer -->
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
+  </div>
 
-    <script src="../assets/js/jquery-3.4.1.min.js"></script>
-    <script src="../assets/js/popper.min.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/owl.carousel.min.js"></script>
-    <script src="../assets/js/jquery.animateNumber.min.js"></script>
-    <script src="../assets/js/jquery.waypoints.min.js"></script>
-    <script src="../assets/js/jquery.fancybox.min.js"></script>
-    <script src="../assets/js/jquery.sticky.js"></script>
-    <script src="../assets/js/aos.js"></script>
-    <script src="../assets/js/custom.js"></script>
+  <script src="../assets/js/jquery-3.4.1.min.js"></script>
+  <script src="../assets/js/popper.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/owl.carousel.min.js"></script>
+  <script src="../assets/js/jquery.animateNumber.min.js"></script>
+  <script src="../assets/js/jquery.waypoints.min.js"></script>
+  <script src="../assets/js/jquery.fancybox.min.js"></script>
+  <script src="../assets/js/jquery.sticky.js"></script>
+  <script src="../assets/js/aos.js"></script>
+  <script src="../assets/js/custom.js"></script>
 
-  </body>
+</body>
 
-  </html>
+</html>

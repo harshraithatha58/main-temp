@@ -1,3 +1,8 @@
+<?php
+    require './_init.php';
+    
+  
+?>
 <!doctype html>
 <html lang="en">
 
@@ -58,11 +63,11 @@
                     </div>
 
                     <div class="col-6 col-lg-3 text-right">
-                        <a href="login.html" class="small mr-3">
+                        <a href="login.php" class="small mr-3">
                             <span class="icon-lock"></span>
                             Log In
                         </a>
-                        <a href="register.html" class="small">
+                        <a href="register.php" class="small">
                             <span class="icon-person"></span>
                             Register
                         </a>
@@ -79,8 +84,6 @@
 
                     <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
                         <li><a href="../index.html">Home</a></li>
-                        <li><a href="elements.html">Elements</a></li>
-
                         <li><a href="staff.html">Our Team</a></li>
                         <li><a href="news.html">News</a></li>
                         <li><a href="about.html">About</a></li>
@@ -136,7 +139,7 @@
                                 <input type="file" class="form-control" placeholder="Upload your image here" name="profile">
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="qualifications" class="form-control" placeholder="qualifications"
+                                <input type="qualifications" class="form-control" placeholder="Qualifications"
                                     name="qualifications">
                             </div>
                             <div class="col-12 mb-3">

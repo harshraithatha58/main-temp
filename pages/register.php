@@ -1,3 +1,38 @@
+<?php
+
+// use LDAP\Result;
+
+require '_init.php';
+if (isset($_POST['submit'])) {
+  $FullName = $_POST['FullName'];
+  $eMail = $_POST['eMail'];
+  $passWord = $_POST['passWord'];
+  $rePassword = $_POST['rePassword'];
+
+  $emailExists = emailAlreadyExists($eMail, $conn);
+  if (!$emailExists) {
+
+      $hashedPassword = PasswordMatchAndHash($passWord, $rePassword); //$hash ma hasses password avi gyo 
+
+      $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
+      $result = mysqli_query($conn, $sql);
+
+      if ($result) {
+        header("Location: ./creation.php");
+        exit();
+      } 
+      else {
+
+        header("Location: ./register.php");
+        exit();
+      }
+  }
+  else {
+      header("Location: ./register.php");
+      exit();
+  }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -10,9 +45,7 @@
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Display+Playfair:wght@400;700&family=Inter:wght@400;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Display+Playfair:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
 
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -29,6 +62,7 @@
 
   <title>GIL Recruitment Portal | Register</title>
 </head>
+
 
 <body>
 
@@ -49,23 +83,20 @@
         <div class="row align-items-center">
 
           <div class="col-6 col-lg-9">
-            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span
-                class="d-none d-lg-inline-block">Have a questions?</span></a>
-            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span
-                class="d-none d-lg-inline-block">10 20 123 456</span></a>
-            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span
-                class="d-none d-lg-inline-block">info@mydomain.com</span></a>
+            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a>
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a>
+            <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a>
           </div>
 
           <div class="col-6 col-lg-3 text-right">
-            <a href="login.html" class="small mr-3">
+            <a href="login.php" class="small mr-3">
               <span class="icon-lock"></span>
               Log In
             </a>
-            <a href="register.html" class="small">
+            <!-- <a href="register.php" class="small">
               <span class="icon-person"></span>
               Register
-            </a>
+            </a> -->
           </div>
 
         </div>
@@ -78,9 +109,6 @@
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>
-            <li><a href="elements.html">Elements</a></li>
-
-
             <li><a href="staff.html">Our Team</a></li>
             <li><a href="news.html">News</a></li>
             <li><a href="about.html">About</a></li>
@@ -89,8 +117,7 @@
 
 
 
-          <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light"
-            data-toggle="collapse" data-target="#main-navbar">
+          <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
             <span></span>
           </a>
 
@@ -124,22 +151,22 @@
 
       <div class="row mb-5 justify-content-center">
         <div class="col-lg-5 mx-auto order-1" data-aos="fade-up" data-aos-delay="200">
-          <form action="#" class="form-box">
+          <form class="form-box" method="post">
             <div class="row">
               <div class="col-12 mb-3" style="height: 12px;">
 
               </div>
               <div class="col-12 mb-3">
-                <input type="text" class="form-control" placeholder="Full name" name="fname">
+                <input type="text" class="form-control" placeholder="Full name" name="FullName">
               </div>
               <div class="col-12 mb-3">
-                <input type="text" class="form-control" placeholder="Email" name="Email">
+                <input type="text" class="form-control" placeholder="Email" name="eMail">
               </div>
               <div class="col-12 mb-3">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" placeholder="Password" name="passWord">
               </div>
               <div class="col-12 mb-3">
-                <input type="password" class="form-control" placeholder="Re-type Password" name="repassword">
+                <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword">
               </div>
 
               <div class="col-12 mb-3">
@@ -149,11 +176,9 @@
                   <div class="control__indicator"></div>
                 </label>
               </div>
-
               <div class="col-12">
-                <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><a href="creation.html"
-                    class="btn btn-secondary">Register
-                  </a></p>
+                <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><button type="submit" class="btn btn-secondary" name="submit">Register</button></p>
+
               </div>
             </div>
           </form>
@@ -223,7 +248,9 @@
         <div class="col-12 text-center">
           <p>
           <p class="copyright">Copyright &copy;
-            <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love
+            <script>
+              document.write(new Date().getFullYear());
+            </script>. All Rights Reserved. &mdash; Designed with love
             by CZMG BCA College <!-- License information: https://untree.co/license/ -->
             <!-- License information: https://untree.co/license/ -->
         </div>
@@ -237,7 +264,12 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-
+  <!-- <script>
+    function dismissAlert() {
+      var alert = document.getElementById('dismissible-alert');
+      alert.style.display = 'none';
+    }
+  </script> -->
   <script src="../assets/js/jquery-3.4.1.min.js"></script>
   <script src="../assets/js/popper.min.js"></script>
   <script src="../assets/js/bootstrap.min.js"></script>
