@@ -2,7 +2,7 @@
 
 // use LDAP\Result;
 
-require '_init.php';
+require ('./_init.php');
 if (isset($_POST['submit'])) {
   $FullName = $_POST['FullName'];
   $eMail = $_POST['eMail'];
@@ -10,26 +10,48 @@ if (isset($_POST['submit'])) {
   $rePassword = $_POST['rePassword'];
 
   $emailExists = emailAlreadyExists($eMail, $conn);
+
   if (!$emailExists) {
 
-      $hashedPassword = PasswordMatchAndHash($passWord, $rePassword); //$hash ma hasses password avi gyo 
+    $hashedPassword = PasswordMatchAndHash($passWord, $rePassword); //$hash ma hasses password avi gyo 
 
-      $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
-      $result = mysqli_query($conn, $sql);
+    $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
+    $result = mysqli_query($conn, $sql);
+    $_SESSION['session_email'] = $eMail;
+    
+    
+    if (isset($_FILES['resume'])) {
 
-      if ($result) {
-        header("Location: ./creation.php");
-        exit();
+      if (isPDF($_FILES['resume'])) {
+        $file_name = $_FILES['resume']['name'];
+        $file_type = $_FILES['resume']['type'];
+        $file_tempname = $_FILES['resume']['tmp_name'];
+        $file_size = $_FILES['resume']['size'];
+        $trimmedEmail = strstr($eMail, '@', true);
+        $finalFileName = "" . $trimmedEmail . "_".$file_name;
+        move_uploaded_file($file_tempname, "userData/cvResume/" . $finalFileName);
       } 
-      else {
+      // else {
+      //   header("Location: ./register.php");
+      //   exit();
+      // }
+    // } else {
+    //   header("Location: ./register.php");
+    //   exit();
+    }
 
-        header("Location: ./register.php");
-        exit();
-      }
-  }
-  else {
+    if ($result) {
+      $_SESSION['session_email'] = $eMail;
+      header("Location: ./creation.php");
+      exit();
+    } else {
+
       header("Location: ./register.php");
       exit();
+    }
+  } else {
+    header("Location: ./register.php");
+    exit();
   }
 }
 ?>
@@ -167,6 +189,10 @@ if (isset($_POST['submit'])) {
               </div>
               <div class="col-12 mb-3">
                 <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword">
+              </div>
+              <div class="col-12 mb-3">
+                <h6>Please Upload your CV / Resume here</h6>
+                <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>
               </div>
 
               <div class="col-12 mb-3">

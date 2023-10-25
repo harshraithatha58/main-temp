@@ -10,9 +10,11 @@ if (isset($_POST['LogIn'])) {
       $row = mysqli_fetch_assoc($result);
       $hashed_password = $row['password'];
       $password_varification = Password_verify( $password , $hashed_password );
-      $_session_email = $_SESSION['session_email'];
+      $_SESSION['session_email'] = $eMail;
+      
 
       header ('location: ./dash_index.html');
+      exit( );
   }
 }
 ?>

@@ -1,7 +1,49 @@
 <?php
-    require './_init.php';
-    
-  
+require './_init.php';
+
+$email = $_SESSION['session_email'];
+// $Qualifications = $_POST['qualifications'];
+// $State = $_POST['State'];
+// $gender = $_POST['gender'];
+
+if (isset($_POST['create'])) {
+    global $email;
+    global $Qualifications;
+    global $State;
+    global $gender;
+    global $age;
+    global $gender;
+    global $url;
+    global $tellUsAboutYouSelf;
+    // $profilePhoto  = $_POST['profilePhoto'];
+    $Qualifications = $_POST['qualifications'];
+    $State = $_POST['State'];
+    // $Resume = $_POST['resume'];
+    $Domain = $_POST['domain'];
+    $age = $_POST['age'];
+    $gwnser = $_POST['gender'];
+    $url = $_POST['url'];
+    $tellUsAboutYouSelf = $_POST['tellUsAboutYouSelf'];
+
+    if (isset($_FILES['profilePhoto'])) {
+        if (isImage($_FILES['profilePhoto'])) {
+            $file_name = $_FILES['profilePhoto']['name'];
+            $file_type = $_FILES['profilePhoto']['type'];
+            $file_tempname = $_FILES['profilePhoto']['tmp_name'];
+            $file_size = $_FILES['profilePhoto']['size'];
+            $trimmedEmail = strstr($email, '@', true);
+            $finalFileName = "" . $trimmedEmail . "_.jpg";
+            move_uploaded_file($file_tempname, "../userData/profilePhoto/" . $finalFileName);
+            // header("Location: ./dash_index.html");
+            // exit();
+        } else {
+            header("Location: ./Creation.php");
+            exit();
+        }
+    }
+
+
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,9 +57,7 @@
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Display+Playfair:wght@400;700&family=Inter:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Display+Playfair:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -54,12 +94,9 @@
                 <div class="row align-items-center">
 
                     <div class="col-6 col-lg-9">
-                        <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span
-                                class="d-none d-lg-inline-block">Have a questions?</span></a>
-                        <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span
-                                class="d-none d-lg-inline-block">10 20 123 456</span></a>
-                        <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span
-                                class="d-none d-lg-inline-block">info@mydomain.com</span></a>
+                        <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a>
+                        <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a>
+                        <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a>
                     </div>
 
                     <div class="col-6 col-lg-3 text-right">
@@ -79,8 +116,7 @@
         <div class="sticky-nav js-sticky-header">
             <div class="container position-relative">
                 <div class="site-navigation text-center">
-                    <a href="../index.html" class="logo menu-absolute m-0">Learner<span
-                            class="text-primary">.</span></a>
+                    <a href="../index.html" class="logo menu-absolute m-0">Learner<span class="text-primary">.</span></a>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
                         <li><a href="../index.html">Home</a></li>
@@ -92,9 +128,7 @@
 
 
 
-                    <a href="#"
-                        class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light"
-                        data-toggle="collapse" data-target="#main-navbar">
+                    <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
                         <span></span>
                     </a>
 
@@ -129,33 +163,34 @@
 
             <div class="row mb-5 justify-content-center">
                 <div class="col-lg-5 mx-auto order-1" data-aos="fade-up" data-aos-delay="200">
-                    <form action="" class="form-box">
+                    <!--  -->
+                    <!-- form input -->
+                    <!--  -->
+                    <form class="form-box" method="post" enctype="multipart/form-data">
                         <div class="col-12 mb-3" style="height: 12px;">
 
                         </div>
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <h6>Please Upload your Profile here</h6>
-                                <input type="file" class="form-control" placeholder="Upload your image here" name="profile">
+                                <input type="file" accept="image/*" capture="camera" class="form-control" placeholder="Upload your image here" name="profilePhoto" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="qualifications" class="form-control" placeholder="Qualifications"
-                                    name="qualifications">
+                                <input type="text" class="form-control" placeholder="Qualifications" name="qualifications" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="State" class="form-control" placeholder="State" name="state">
+                                <input type="text" class="form-control" placeholder="State" name="State" required>
                             </div><br><br>
                             <div class="col-12 mb-3">
                                 <h6>Please Upload your CV / Resume here</h6>
-                                <input type="file" class="form-control" placeholder="Upload your resume here"
-                                    name="resume">
+                                <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>
+                                <!-- <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required> -->
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="domain" class="form-control"
-                                    placeholder="Enter Your Domain | eg: Networking" name="domain">
+                                <input type="text" class="form-control" placeholder="Enter Your Domain | eg: Networking" name="domain" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="age" class="form-control" placeholder="Enter Your Age" name="age">
+                                <input type="text" class="form-control" placeholder="Enter Your Age" name="age" required>
                             </div>
                             <div class="col-12 mb-3">
                                 <select name="gender" id="select" class="custom-select" required>
@@ -167,19 +202,13 @@
 
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="url" class="form-control" placeholder="Enter Your Website URL" name="url">
+                                <input type="url" class="form-control" placeholder="Enter Your Website URL" name="url" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <textarea name="" class="form-control" id="message" cols="50" rows="5" name="message"
-                                    placeholder="Tell us about yourself" style="resize: none;"></textarea>
+                                <textarea name="tellUsAboutYouSelf" class="form-control" id="message" cols="50" rows="5" name="tellUsAboutYouSelf" placeholder="Tell us about yourself" style="resize: none;" required></textarea>
                             </div>
+                            <button type="submit" class="btn btn-secondary" name="create">Create</button>
 
-                            <div class="col-12">
-                                <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><a href="creation.html"
-                                        class="btn btn-secondary">Create
-                                    </a></p>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -248,7 +277,9 @@
             <div class="row mt-5">
                 <div class="col-12 text-center">
                     <p> class="copyright">Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>. All Rights Reserved. &mdash;
                         Designed with love by CZMG BCA College <!-- License information: https://untree.co/license/ -->
                 </div>
             </div>

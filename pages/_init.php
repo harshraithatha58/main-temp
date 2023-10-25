@@ -1,5 +1,6 @@
 <?php
 
+session_start() ;
 $server  = "localhost";
 $user = "root";
 $password = "";
@@ -9,7 +10,6 @@ $conn = mysqli_connect($server, $user, $password, $database);
 if (mysqli_connect_errno()) {
     die("error detected ... : ". mysqli_connect_error());
 }
-session_start() ;
 // signu up page password hash
 function PasswordMatchAndHash($password, $repassword){
     if ($password == $repassword) {
@@ -32,29 +32,20 @@ function emailAlreadyExists($email, $conn) {
         return false; // Email doesn't exist
     }
 }
-function verifyPassword($password , $email , $conn){
+function isImage($file) {
+    $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_BMP);
+    $detectedType = exif_imagetype($file['tmp_name']);
     
-    
-    $sql = "select password from `user` where email='$email'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $hashed_password = $row['password'];
-        $password_varification = Password_verify( $password , $hashed_password );
-        $_session_email = $_SESSION['session_email'];
-    }
-    else{
-        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>';
-    }
-    if ($password_varification) {
-        $_SESSION['logged_in'] = true;
-
-    }
-
-    return $_session_email;
-
+    return in_array($detectedType, $allowedTypes);
 }
+function isPDF($file) {
+    $allowedExtensions = ['pdf'];
+    $fileExtension = pathinfo($file['resume']['name'], PATHINFO_EXTENSION);
 
+    // Check if the file extension is in the allowedExtensions array
+    if (in_array(strtolower($fileExtension), $allowedExtensions)) {
+        return true; // File is a PDF
+    } else {
+        return false; // File is not a PDF
+    }
+} 

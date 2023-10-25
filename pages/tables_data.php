@@ -1,20 +1,5 @@
 <?php
-require './_init.php';
-if (isset($_GET['accept'])) {
-  $sno = $_GET['accept'];
-  $accept = true;
-  $sql = "INSERT INTO `admin` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
-  $result = mysqli_query($conn, $sql);
-}
-if (isset($_GET['delete'])) {
-  $eMail = $_GET['delete'];
-  $delete = true;
-  $sql = "DELETE FROM `user` WHERE `email` = $eMail";
-  $result = mysqli_query($conn, $sql);
-}
-
-?>
-
+  require './_init.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -199,6 +184,15 @@ if (isset($_GET['delete'])) {
             <div class="col">
               <div class="card mb-grid">
                 <div class="table-responsive-md">
+
+
+                  <?php
+
+                  $sql = 'SELECT `srno`, `email`, `username`, `description` FROM `user` WHERE srno < 213';
+                  $result = mysqli_query($conn, $sql);
+                  $len = mysqli_num_rows($result);
+                  ?>
+
                   <table class="table table-actions table-striped table-hover mb-0" data-table>
                     <thead>
                       <tr>
@@ -210,52 +204,57 @@ if (isset($_GET['delete'])) {
                         </th>
                         <th scope="col">sr no</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Password</th>
+                        <th scope="col">username</th>
                         <th scope="col">description</th>
-                        <th scope="col">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">
-                          <label class="custom-control custom-checkbox m-0 p-0">
-                            <input type="checkbox" class="custom-control-input table-select-row">
-                            <span class="custom-control-indicator"></span>
-                          </label>
-                        </th>
-                        <td> </td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                          <span class="badge badge-pill badge-primary">Admin</span>
-                        </td>
-                        <td>
-                          <button class="btn btn-sm btn-primary" name="accept">Edit</button>
-                          <button class="btn btn-sm btn-danger" name="delete">Delete</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <label class="custom-control custom-checkbox m-0 p-0">
-                            <input type="checkbox" class="custom-control-input table-select-row">
-                            <span class="custom-control-indicator"></span>
-                          </label>
-                        </th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                          <span class="badge badge-pill badge-primary">Author</span>
-                          <span class="badge badge-pill badge-primary">Developer</span>
-                        </td>
-                        <td>
-                          <button class="btn btn-sm btn-primary">Edit</button>
-                          <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                      </tr>
-                        
+                      <?php
+                      while ($row = $result->fetch_assoc()) {
+                        $srno = $row['srno'];
+                        $username = $row['username'];
+                        $email = $row['email'];
+                        $description = $row['description'];
+                        echo '
+      <tr>
+        <th scope="row">
+          <label class="custom-control custom-checkbox m-0 p-0">
+            <input type="checkbox" class="custom-control-input table-select-row">
+            <span class="custom-control-indicator"></span>
+          </label>
+        </th>
+        <td>' . $srno . '</td>
+        <td>' . $email . '</td>
+        <td>' . $username . '</td>
+        <td>' . $description . '</td>
+        <td>
+          <button class="btn btn-sm btn-primary" name="accept">Edit</button>
+          <button class="btn btn-sm btn-danger" name="delete">Delete</button>
+        </td>
+      </tr>';
+                      }
+                      ?>
                     </tbody>
                   </table>
+
+
+                  <?php
+                  // require './_init.php';
+                  if (isset($_GET['accept'])) {
+                    $sno = $_GET['accept'];
+                    $accept = true;
+                    $sql = "INSERT INTO `admin` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
+                    $result = mysqli_query($conn, $sql);
+                  }
+                  if (isset($_GET['delete'])) {
+                    $srno = $_GET['delete'];
+                    $delete = true;
+                    $sql = "DELETE FROM `user` WHERE `srno` = $srno";
+                    $result = mysqli_query($conn, $sql);
+                  }
+
+
+                  ?>
                 </div>
               </div>
             </div>
