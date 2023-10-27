@@ -99,7 +99,7 @@
               <i data-feather="home"></i>
             </span>
             <span class="sidebar-nav-name">
-              Dashboard
+              Active Jobs
             </span>
             <span class="sidebar-nav-end">
 
@@ -163,7 +163,9 @@
         <div class="container-fluid">
           <!-- BreadCrumb -->
           <div class="pb-3">
-            <h1>Accepted Profiles</h1>
+            <h1 align="center">
+              <font color="blue">Accepted Profiles</font>
+            </h1>
 
             <?php
             require './_init.php';
@@ -188,7 +190,6 @@
                 <th scope="col">Gender</th>
                 <th scope="col">Website</th>
                 <th scope="col">Description</th>
-                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>';

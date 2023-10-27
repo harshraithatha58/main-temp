@@ -1,12 +1,15 @@
 <?php
+session_start();
 require './_init.php';
+$email = $Qualifications = $State = $gender = $age = $url = $tellUsAboutYouSelf = "";
 
-$email = $_SESSION['session_email'];
+$semail = $_SESSION['session_email'];
+echo $semail;
 // $Qualifications = $_POST['qualifications'];
 // $State = $_POST['State'];
 // $gender = $_POST['gender'];
-
 if (isset($_POST['create'])) {
+    echo "hello world";
     global $email;
     global $Qualifications;
     global $State;
@@ -15,17 +18,21 @@ if (isset($_POST['create'])) {
     global $gender;
     global $url;
     global $tellUsAboutYouSelf;
-    // $profilePhoto  = $_POST['profilePhoto'];
-    $Qualifications = $_POST['qualifications'];
-    $State = $_POST['State'];
-    // $Resume = $_POST['resume'];
-    $Domain = $_POST['domain'];
-    $age = $_POST['age'];
-    $gwnser = $_POST['gender'];
-    $url = $_POST['url'];
-    $tellUsAboutYouSelf = $_POST['tellUsAboutYouSelf'];
 
-    if (isset($_FILES['profilePhoto'])) {
+
+
+
+
+
+    if (isset($_POST['qualifications'], $_POST['State'], $_POST['domain'], $_POST['age'], $_POST['gender'], $_POST['url'], $_POST['tellUsAboutYouSelf'])) {
+        $Qualifications = mysqli_real_escape_string($conn, $_POST['qualifications']);
+        $State = mysqli_real_escape_string($conn, $_POST['State']);
+        $Domain = mysqli_real_escape_string($conn, $_POST['domain']);
+        $age = mysqli_real_escape_string($conn, $_POST['age']);
+        $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+        $url = mysqli_real_escape_string($conn, $_POST['url']);
+        $tellUsAboutYouSelf = mysqli_real_escape_string($conn, $_POST['tellUsAboutYouSelf']);
+
         if (isImage($_FILES['profilePhoto'])) {
             $file_name = $_FILES['profilePhoto']['name'];
             $file_type = $_FILES['profilePhoto']['type'];
@@ -35,18 +42,27 @@ if (isset($_POST['create'])) {
             $finalFileName = "" . $trimmedEmail . "_.jpg";
             move_uploaded_file($file_tempname, "../userData/profilePhoto/" . $finalFileName);
 
-            $sql = "INSERT INTO your_table_name (qualification, state, domain, age, gender, website, description, email) VALUES ('$qualification', '$state', '$domain', '$age', '$gender', '$website', '$description', '$email')";
-            $result = mysqli_query($conn , $sql);
-            header("Location: ./dash_index.html");
-            exit();
+            $sql = "INSERT INTO `user` (`qualifications`, `state`, `domain`, `gender`, `website`, `description`, `email`) VALUES ('$Qualifications', '$State', '$Domain', '$gender', '$url', '$tellUsAboutYouSelf', '$email')";
+            $result = mysqli_query($conn, $sql);
+
+            // Check if the query was successful
+            if ($result) {
+                header("Location: ./landing.php");
+                // exit();
+            } else {
+                // Handle insertion failure
+                echo "Error: " . mysqli_error($conn);
+                // exit();
+            }
         } else {
-            header("Location: ./Creation.php");
-            exit();
+            echo "Error: " . mysqli_error($conn);
+            // exit();
         }
     }
-
-
+} else {
+    echo "Error: " . mysqli_error($conn);
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -119,7 +135,7 @@ if (isset($_POST['create'])) {
         <div class="sticky-nav js-sticky-header">
             <div class="container position-relative">
                 <div class="site-navigation text-center">
-                <a href="index.html" class="logo menu-absolute m-0">GIL</a>
+                    <a href="index.html" class="logo menu-absolute m-0">GIL</a>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
                         <li><a href="../index.html">Home</a></li>
@@ -186,8 +202,7 @@ if (isset($_POST['create'])) {
                             </div><br><br>
                             <div class="col-12 mb-3">
                                 <h6>Please Upload your CV / Resume here</h6>
-                                <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>
-                                <!-- <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required> -->
+                                <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>    
                             </div>
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control" placeholder="Enter Your Domain | eg: Networking" name="domain" required>

@@ -3,7 +3,9 @@ session_start();
 // use LDAP\Result;
 
 require ('./_init.php');
+echo $_SERVER['REQUEST_METHOD'];
 if (isset($_POST['submit'])) {
+
   $FullName = $_POST['FullName'];
   $eMail = $_POST['eMail'];
   $passWord = $_POST['passWord'];
@@ -127,7 +129,7 @@ if (isset($_POST['submit'])) {
     <div class="sticky-nav js-sticky-header">
       <div class="container position-relative">
         <div class="site-navigation text-center">
-        <a href="index.html" class="logo menu-absolute m-0">GIL</a>
+        <a href="../index.html" class="logo menu-absolute m-0">GIL</a>
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>

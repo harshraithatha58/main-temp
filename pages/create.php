@@ -99,7 +99,7 @@
               <i data-feather="home"></i>
             </span>
             <span class="sidebar-nav-name">
-              Dashboard
+              Active Jobs
             </span>
             <span class="sidebar-nav-end">
 
@@ -130,7 +130,7 @@
         </li>
 
         <li class="sidebar-nav-item">
-          <a href="admin_create.php" class="sidebar-nav-link active">
+          <a href="create.php" class="sidebar-nav-link active">
             <span class="sidebar-nav-abbr">
               C
             </span>
@@ -141,7 +141,7 @@
         </li>
 
         <li class="sidebar-nav-item">
-          <a href="addjob.php" class="sidebar-nav-link">
+          <a href="job.php" class="sidebar-nav-link">
             <span class="sidebar-nav-abbr">
               C
             </span>
@@ -195,7 +195,6 @@
               <div class="col-12 mb-3">
                 <input type="password" class="form-control" placeholder="Password" name="PassWord">
               </div>
-              <br><br><br><br>
               <div class="col-12">
                 <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><button type="submit" class="btn btn-primary" name="LogIn">
                     Login</button></p>

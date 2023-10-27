@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <title>GIL Recruitment Portal | </title>
@@ -15,7 +15,8 @@
   <div class="adminx-container">
     <nav class="navbar navbar-expand justify-content-between fixed-top">
       <a class="navbar-brand mb-0 h1 d-none d-md-block" href="dash_index.html">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjCWhrUCcu09JANQiaOla8fvL3cHmyo_tjPQ&usqp=CAU" class="navbar-brand-image d-inline-block align-top mr-2" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjCWhrUCcu09JANQiaOla8fvL3cHmyo_tjPQ&usqp=CAU"
+          class="navbar-brand-image d-inline-block align-top mr-2" alt="">
         GIL
       </a>
 
@@ -103,7 +104,7 @@
               <i data-feather="home"></i>
             </span>
             <span class="sidebar-nav-name">
-              Dashboard
+              Active Jobs
             </span>
             <span class="sidebar-nav-end">
 
@@ -155,7 +156,7 @@
           </a>
         </li>
 
-        
+
       </ul>
       </li>
       </ul>
@@ -171,7 +172,9 @@
         <div class="container-fluid">
           <!-- BreadCrumb -->
           <div class="pb-3">
-            <h1>Dashboard</h1>
+            <h1 align="center">
+              <font color="blue">Active Jobs</font>
+            </h1>
           </div>
 
           <div class="row">
@@ -250,10 +253,42 @@
             </div>
           </div>
 
+          <!-- job -->
+          
+          <div class="row">
+            <div class="col">
+              <div class="card mb-grid w-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between mb-3">
+                    <h5 class="card-title mb-0">
+                      <font color="blue">Title</font>
+                    </h5>
+                  </div>
+                  <div>
+                    <p>
+                      Description
+                    </p>
+                    <p class="mb-0" data-aos="fade-up" data-aos-delay="300" align="right">
+                      <button type="submit" class="btn btn-primary" name="addjob">
+                        View Applicants
+                      </button>
+                      <button type="submit" class="btn btn-danger" name="addjob">
+                        Delete
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- job -->
 
         </div>
+
       </div>
     </div>
+  </div>
   </div>
 
   <!-- If you prefer jQuery these are the required scripts -->

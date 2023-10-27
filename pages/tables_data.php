@@ -28,7 +28,7 @@
         // Data inserted into admin table successfully, delete the record from the user table
         $deleteUserQuery = "DELETE FROM `user` WHERE `srno` = $srno";
         $deleteResult = mysqli_query($conn, $deleteUserQuery);
-  
+
         if ($deleteResult) {
           // Record deleted from user table successfully
         } else {
@@ -158,7 +158,7 @@
                 <i data-feather="home"></i>
               </span>
               <span class="sidebar-nav-name">
-                Dashboard
+                Active Jobs
               </span>
               <span class="sidebar-nav-end">
 
@@ -220,7 +220,9 @@
           <div class="container-fluid">
             <!-- BreadCrumb -->
             <div class="pb-3">
-              <h1>All The Pending Profiles</h1>
+              <h1 align="center">
+                <font color="blue">Pending Jobs</font>
+              </h1>
             </div>
 
             <div class="row">

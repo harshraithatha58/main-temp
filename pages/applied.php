@@ -1,14 +1,3 @@
-<?php
-// jtitle jdescription submit
-    session_start();
-    require './_init.php';
-    session_start();
-    if (isset($_POST['submit'])){
-        $jobtitle = $_POST['jtitle'];
-        $jobdescription = $_POST['jdescription'];
-        $sql = "INSERT INTO ``";
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,7 +94,7 @@
         <div class="adminx-sidebar expand-hover push">
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-item">
-                    <a href="dash_index.html" class="sidebar-nav-link">
+                    <a href="landing.php" class="sidebar-nav-link">
                         <span class="sidebar-nav-icon">
                             <i data-feather="home"></i>
                         </span>
@@ -113,51 +102,17 @@
                             Active Jobs
                         </span>
                         <span class="sidebar-nav-end">
-
                         </span>
                     </a>
                 </li>
 
                 <li class="sidebar-nav-item">
-                    <a href="tables.php" class="sidebar-nav-link">
+                    <a href="applied.php" class="sidebar-nav-link active">
                         <span class="sidebar-nav-abbr">
-                            A
+                            $
                         </span>
                         <span class="sidebar-nav-name">
-                            Accepted Profiles
-                        </span>
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-item">
-                    <a href="tables_data.php" class="sidebar-nav-link">
-                        <span class="sidebar-nav-abbr">
-                            P
-                        </span>
-                        <span class="sidebar-nav-name">
-                            Pending Profiles
-                        </span>
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-item">
-                    <a href="create.php" class="sidebar-nav-link">
-                        <span class="sidebar-nav-abbr">
-                            C
-                        </span>
-                        <span class="sidebar-nav-name">
-                            Create An Admin
-                        </span>
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-item">
-                    <a href="job.php" class="sidebar-nav-link active">
-                        <span class="sidebar-nav-abbr">
-                            C
-                        </span>
-                        <span class="sidebar-nav-name">
-                            Create A Job
+                            Applied Jobs
                         </span>
                     </a>
                 </li>
@@ -168,80 +123,62 @@
             </ul>
         </div><!-- Sidebar End -->
 
-        <!-- Main Content -->
         <div class="adminx-content">
             <div class="adminx-main-content">
                 <div class="container-fluid">
-                    <div class="untree_co-hero inner-page overlay">
-                        <div class="untree_co-hero inner-page overlay">
-                            <div class="container">
-                                <div class="row align-items-center justify-content-center">
-                                    <div class="col-12">
-                                        <div class="row justify-content-center ">
-                                            <div class="col-lg-6 text-center ">
-                                                <h1 class="mb-4 heading text-white" data-aos="fade-up" data-aos-delay="100">
-                                                    <font color="blue">Create a Job </font>
-                                                </h1>
+                    <div class="pb-3">
+                        <h1 align="center">
+                            <font color="blue">Applied Jobs</font>
+                        </h1>
+                    </div>
 
-                                            </div>
-                                        </div>
+                    <!-- job -->
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-grid w-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="card-title mb-0">
+                                            <font color="blue">Title</font>
+                                        </h5>
                                     </div>
-                                </div> <!-- /.row -->
-                            </div> <!-- /.container -->
-
-                        </div> <!-- /.untree_co-hero -->
-
-
-
-
-                        <div class="untree_co-section">
-                            <div class="container">
-
-                                <div class="row mb-5 justify-content-center">
-                                    <div class="col-lg-5 mx-auto order-1" data-aos="fade-up" data-aos-delay="200">
-                                        <form action="" method="post" class="form-box">
-                                            <div class="row">
-                                                <div class="col-12 mt-3">
-                                                </div>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <input type="text" class="form-control" placeholder="Job Title" name="jtitle" maxlength="500" required>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <textarea name="jdescription" class="form-control" id="" placeholder="Describe Job here" cols="30" rows="5" style="resize: none;"></textarea>
-                                                    <!-- <input type="textarea" class="form-control" placeholder="Job Description" name="jdescription" maxlength="5000" required> -->
-                                                </div>
-                                                
-                                                <div class="col-12">
-                                                    <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><button type="submit" class="btn btn-primary" name="addjob">
-                                                            Create </button></p>
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div>
+                                        <p>
+                                            Description
+                                        </p>
+                                        <p class="mb-0" data-aos="fade-up" data-aos-delay="300" align="right"><button type="submit" class="btn btn-primary" name="addjob" disabled>
+                                                Applied</button></p>
                                     </div>
                                 </div>
-
-
                             </div>
-                        </div> <!-- /.untree_co-hero -->
+                        </div>
+                    </div>
+                    
+                    <!-- job -->
+
+
+
+                </div>
+            </div>
+        </div>
 
 
 
 
 
+    </div>
 
+    <!-- If you prefer jQuery these are the required scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="../assets/js/vendor.js"></script>
+    <script src="../assets/js/adminx.js"></script>
 
-
-                        <!-- If you prefer jQuery these are the required scripts -->
-                        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-                        <script src="../assets/js/vendor.js"></script>
-                        <script src="../assets/js/adminx.js"></script>
-
-                        <!-- If you prefer vanilla JS these are the only required scripts -->
-                        <!-- script src="../dist/js/vendor.js"></script>
-    <script src="../dist/js/adminx.vanilla.js"></script-->
+    <!-- If you prefer vanilla JS these are the only required scripts -->
+    <!-- script src="../dist/js/vendor.js"></script>
+  <script src="../dist/js/adminx.vanilla.js"></script-->
 </body>
 
 </html>

@@ -13,7 +13,7 @@ if (isset($_POST['LogIn'])) {
     $_SESSION['session_email'] = $eMail;
 
 
-    header('location: ./dash_index.html');
+    header('location: ./landing.php');
     exit();
   }
 }
@@ -89,7 +89,7 @@ if (isset($_POST['LogIn'])) {
     <div class="sticky-nav js-sticky-header">
       <div class="container position-relative">
         <div class="site-navigation text-center">
-          <a href="index.html" class="logo menu-absolute m-0">GIL</a>
+          <a href="../index.html" class="logo menu-absolute m-0">GIL</a>
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>
