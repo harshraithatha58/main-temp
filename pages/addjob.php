@@ -1,52 +1,7 @@
 <?php
+session_start();
 require './_init.php';
 
-$email = $_SESSION['session_email'];
-// $Qualifications = $_POST['qualifications'];
-// $State = $_POST['State'];
-// $gender = $_POST['gender'];
-
-if (isset($_POST['create'])) {
-    global $email;
-    global $Qualifications;
-    global $State;
-    global $gender;
-    global $age;
-    global $gender;
-    global $url;
-    global $tellUsAboutYouSelf;
-    // $profilePhoto  = $_POST['profilePhoto'];
-    $Qualifications = $_POST['qualifications'];
-    $State = $_POST['State'];
-    // $Resume = $_POST['resume'];
-    $Domain = $_POST['domain'];
-    $age = $_POST['age'];
-    $gwnser = $_POST['gender'];
-    $url = $_POST['url'];
-    $tellUsAboutYouSelf = $_POST['tellUsAboutYouSelf'];
-
-    if (isset($_FILES['profilePhoto'])) {
-        if (isImage($_FILES['profilePhoto'])) {
-            $file_name = $_FILES['profilePhoto']['name'];
-            $file_type = $_FILES['profilePhoto']['type'];
-            $file_tempname = $_FILES['profilePhoto']['tmp_name'];
-            $file_size = $_FILES['profilePhoto']['size'];
-            $trimmedEmail = strstr($email, '@', true);
-            $finalFileName = "" . $trimmedEmail . "_.jpg";
-            move_uploaded_file($file_tempname, "../userData/profilePhoto/" . $finalFileName);
-
-            $sql = "INSERT INTO your_table_name (qualification, state, domain, age, gender, website, description, email) VALUES ('$qualification', '$state', '$domain', '$age', '$gender', '$website', '$description', '$email')";
-            $result = mysqli_query($conn , $sql);
-            header("Location: ./dash_index.html");
-            exit();
-        } else {
-            header("Location: ./Creation.php");
-            exit();
-        }
-    }
-
-
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -80,7 +35,7 @@ if (isset($_POST['create'])) {
 
 <body>
 
-    <div class="site-mobile-menu">
+    <!-- <div class="site-mobile-menu">
         <div class="site-mobile-menu-header">
             <div class="site-mobile-menu-close">
                 <span class="icofont-close js-menu-toggle"></span>
@@ -98,32 +53,32 @@ if (isset($_POST['create'])) {
 
                     <div class="col-6 col-lg-9">
                         <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a>
-                        <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a>
+                        <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">9966996699</span></a>
                         <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a>
                     </div>
 
                     <div class="col-6 col-lg-3 text-right">
-                        <a href="login.php" class="small mr-3">
-                            <span class="icon-lock"></span>
-                            Log In
-                        </a>
-                        <a href="register.php" class="small">
+                         <a href="login.html" class="small mr-3">
+              <span class="icon-lock"></span>
+              Log In
+            </a> -->
+                        <!-- <a href="register.php" class="small">
                             <span class="icon-person"></span>
                             Register
-                        </a>
-                    </div>
+                        </a> -->
+                    <!-- </div>
 
                 </div>
             </div>
-        </div>
-        <div class="sticky-nav js-sticky-header">
-            <div class="container position-relative">
-                <div class="site-navigation text-center">
-                <a href="index.html" class="logo menu-absolute m-0">GIL</a>
+        </div>  -->
+        <!-- <div class="sticky-nav js-sticky-header">
+            <div class="container position-relative"> -->
+                <!-- <div class="site-navigation text-center">
+                    <a href="index.php" class="logo menu-absolute m-0">GIL</a>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
                         <li><a href="../index.html">Home</a></li>
-                        <li><a href="staff.html">Our Team</a></li>
+                        <li><a href="../staff.html">Our Team</a></li>
                         <li><a href="news.html">News</a></li>
                         <li><a href="about.html">About</a></li>
                         <li class="active"><a href="contact.html">Contact</a></li>
@@ -136,9 +91,9 @@ if (isset($_POST['create'])) {
                     </a>
 
                 </div>
-            </div>
-        </div>
-    </nav>
+            </div> -->
+        <!-- </div>
+    </nav> -->
 
 
     <div class="untree_co-hero inner-page overlay">
@@ -147,8 +102,7 @@ if (isset($_POST['create'])) {
                 <div class="col-12">
                     <div class="row justify-content-center ">
                         <div class="col-lg-6 text-center ">
-                            <h1 class="mb-4 heading text-white" data-aos="fade-up" data-aos-delay="100">Profile Creation
-                            </h1>
+                            <h1 class="mb-4 heading text-white" data-aos="fade-up" data-aos-delay="100">Create a Job </h1>
 
                         </div>
                     </div>
@@ -166,52 +120,26 @@ if (isset($_POST['create'])) {
 
             <div class="row mb-5 justify-content-center">
                 <div class="col-lg-5 mx-auto order-1" data-aos="fade-up" data-aos-delay="200">
-                    <!--  -->
-                    <!-- form input -->
-                    <!--  -->
-                    <form class="form-box" method="post" enctype="multipart/form-data">
-                        <div class="col-12 mb-3" style="height: 12px;">
-
-                        </div>
+                    <form action="" method="post" class="form-box">
                         <div class="row">
-                            <div class="col-12 mb-3">
-                                <h6>Please Upload your Profile here</h6>
-                                <input type="file" accept="image/*" capture="camera" class="form-control" placeholder="Upload your image here" name="profilePhoto" required>
+                            <div class="col-12 mt-3">
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="text" class="form-control" placeholder="Qualifications" name="qualifications" required>
+                                <input type="text" class="form-control" placeholder="Job Id" name="jid" maxlength="150" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="text" class="form-control" placeholder="State" name="State" required>
-                            </div><br><br>
-                            <div class="col-12 mb-3">
-                                <h6>Please Upload your CV / Resume here</h6>
-                                <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>
-                                <!-- <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required> -->
+                                <input type="text" class="form-control" placeholder="Job title" name="jtitle" maxlength="500" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="text" class="form-control" placeholder="Enter Your Domain | eg: Networking" name="domain" required>
+                                <textarea name="jdescription" class="form-control" id="" placeholder="Describe job hear" cols="30" rows="5"></textarea>
+                                <!-- <input type="textarea" class="form-control" placeholder="Job Description" name="jdescription" maxlength="5000" required> -->
+                            </div>  
+                            <br><br><br><br>
+                            <div class="col-12">
+                                <p class="mb-0" data-aos="fade-up" data-aos-delay="300"><button type="submit" class="btn btn-secondary" name="addjob">
+                                        create </button></p>
                             </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="form-control" placeholder="Enter Your Age" name="age" required>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <select name="gender" id="select" class="custom-select" required>
-                                    <option value="gender">Select gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="url" class="form-control" placeholder="Enter Your Website URL" name="url" required>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <textarea name="tellUsAboutYouSelf" class="form-control" id="message" cols="50" rows="5" name="tellUsAboutYouSelf" placeholder="Tell us about yourself" style="resize: none;" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-secondary" name="create">Create</button>
-
+                        </div>
                     </form>
                 </div>
             </div>
@@ -219,9 +147,6 @@ if (isset($_POST['create'])) {
 
         </div>
     </div> <!-- /.untree_co-section -->
-
-
-
 
     <div class="site-footer">
 
@@ -232,10 +157,7 @@ if (isset($_POST['create'])) {
                 <div class="col-lg-6 mr-auto">
                     <div class="widget">
                         <h3>About Us<span class="text-primary">.</span> </h3>
-                        <p>Whether you need short-term project support, seasonal staffing, or temporary expertise, Gil
-                            Recruitment Services is your go-to source for contract-based recruitment solutions. We're
-                            here to simplify the hiring process and ensure you have the right talent to accomplish your
-                            goals.
+                        <p>Whether you need short-term project support, seasonal staffing, or temporary expertise, Gil Recruitment Services is your go-to source for contract-based recruitment solutions. We're here to simplify the hiring process and ensure you have the right talent to accomplish your goals.
                         </p>
                     </div> <!-- /.widget -->
                     <div class="widget">
@@ -263,6 +185,7 @@ if (isset($_POST['create'])) {
                         </ul>
                     </div> <!-- /.widget -->
                 </div> <!-- /.col-lg-3 -->
+
                 <div class="col-lg-3">
                     <div class="widget">
                         <h3>Contact</h3>
@@ -275,15 +198,14 @@ if (isset($_POST['create'])) {
                     </div> <!-- /.widget -->
                 </div> <!-- /.col-lg-3 -->
 
+
             </div> <!-- /.row -->
 
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <p> class="copyright">Copyright &copy;
-                        <script>
+                    <p> class="copyright">Copyright &copy;<script>
                             document.write(new Date().getFullYear());
-                        </script>. All Rights Reserved. &mdash;
-                        Designed with love by CZMG BCA College <!-- License information: https://untree.co/license/ -->
+                        </script>. All Rights Reserved. &mdash; Designed with love by CZMG BCA College <!-- License information: https://untree.co/license/ -->
                 </div>
             </div>
         </div> <!-- /.container -->

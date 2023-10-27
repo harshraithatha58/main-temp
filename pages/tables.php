@@ -7,12 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="stylesheet" type="text/css" href="../assets/css/adminx.css" media="screen" />
-
-
 </head>
 
 <body>
   <div class="adminx-container">
+    <!-- Header -->
     <nav class="navbar navbar-expand justify-content-between fixed-top">
       <a class="navbar-brand mb-0 h1 d-none d-md-block" href="dash_index.html">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjCWhrUCcu09JANQiaOla8fvL3cHmyo_tjPQ&usqp=CAU" class="navbar-brand-image d-inline-block align-top mr-2" alt="">
@@ -43,8 +42,7 @@
             <i class="oi oi-bell display-inline-block align-middle"></i>
             <span class="nav-link-notification-number">3</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-notifications"
-            aria-labelledby="dropdownNotifications">
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-notifications" aria-labelledby="dropdownNotifications">
             <div class="notifications-header d-flex justify-content-between align-items-center">
               <span class="notifications-header-title">
                 Notifications
@@ -79,9 +77,7 @@
         <!-- Notifications -->
         <li class="nav-item dropdown">
           <a class="nav-link avatar-with-name" id="navbarDropdownMenuLink" data-toggle="dropdown" href="#">
-            <img
-              src="https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
-              class="d-inline-block align-top" alt="">
+            <img src="https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" class="d-inline-block align-top" alt="">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">My Tasks</a>
@@ -98,7 +94,7 @@
     <div class="adminx-sidebar expand-hover push">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-item">
-          <a href="dash_index.html" class="sidebar-nav-link active">
+          <a href="dash_index.html" class="sidebar-nav-link">
             <span class="sidebar-nav-icon">
               <i data-feather="home"></i>
             </span>
@@ -112,7 +108,7 @@
         </li>
 
         <li class="sidebar-nav-item">
-          <a href="tables.php" class="sidebar-nav-link">
+          <a href="tables.php" class="sidebar-nav-link active">
             <span class="sidebar-nav-abbr">
               A
             </span>
@@ -155,105 +151,84 @@
           </a>
         </li>
 
-        
+
       </ul>
       </li>
       </ul>
     </div><!-- Sidebar End -->
 
-    <!-- adminx-content-aside -->
+    <!-- Main Content -->
     <div class="adminx-content">
-      <!-- <div class="adminx-aside">
-
-        </div> -->
-
       <div class="adminx-main-content">
         <div class="container-fluid">
           <!-- BreadCrumb -->
           <div class="pb-3">
-            <h1>Dashboard</h1>
-          </div>
+            <h1>Accepted Profiles</h1>
 
-          <div class="row">
-            <div class="col-md-6 col-lg-3 d-flex">
-              <div class="card mb-grid w-100">
-                <div class="card-body d-flex flex-column">
-                  <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title mb-0">
-                      Accepted Profiles
-                    </h5>
+            <?php
+            require './_init.php';
 
-                    <div class="card-title-sub">
-                      753
-                    </div>
-                  </div>
+            // Fetch data from the admin table
+            $selectAdminQuery = "SELECT `username`, `email`, `qualifications`, `state`, `resume`, `domain`, `srno`, `age`, `gender`, `website`, `description` FROM `admin`";
+            $adminResult = mysqli_query($conn, $selectAdminQuery);
 
-                  <div class="progress mt-auto">
-                    <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75"
-                      aria-valuemin="0" aria-valuemax="100">3/4</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            // Check if there are any results
+            if (mysqli_num_rows($adminResult) > 0) {
+              echo '
+    <table class="table table-actions table-striped table-hover mb-0" data-table>
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Qualifications</th>
+                <th scope="col">State</th>
+                <th scope="col">Resume</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Website</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>';
 
-            <div class="col-md-6 col-lg-3 d-flex">
-              <div class="card mb-grid w-100">
-                <div class="card-body d-flex flex-column">
-                  <div class="d-flex justify-content-between mb-3">
-                    <h5 class="card-title mb-0">
-                      Pending Tasks
-                    </h5>
+              // Output data of each row
+              while ($row = mysqli_fetch_assoc($adminResult)) {
+                echo '
+        <tr>
+            <td>' . $row["username"] . '</td>
+            <td>' . $row["email"] . '</td>
+            <td>' . $row["qualifications"] . '</td>
+            <td>' . $row["state"] . '</td>
+            <td>' . $row["resume"] . '</td>
+            <td>' . $row["domain"] . '</td>
+            <td>' . $row["age"] . '</td>
+            <td>' . $row["gender"] . '</td>
+            <td>' . $row["website"] . '</td>
+            <td>' . $row["description"] . '</td>
+            
+        </tr>';
+              }
 
-                    <div class="card-title-sub">
-                      18/30
-                    </div>
-                  </div>
+              echo '
+        </tbody>
+    </table>';
+            } else {
+              // echo "No records found in the admin table.";
+            }
 
-                  <div class="progress mt-auto">
-                    <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="75"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            // Close the database connection
+            mysqli_close($conn);
+            ?>
 
-            <div class="col-md-6 col-lg-3 d-flex">
-              <div class="card border-0 bg-primary text-white text-center mb-grid w-100">
-                <div class="d-flex flex-row align-items-center h-100">
-                  <div class="card-icon d-flex align-items-center h-100 justify-content-center">
-                    <i data-feather="users"></i>
-                  </div>
-                  <div class="card-body">
-                    <div class="card-info-title">Recruitments</div>
-                    <h3 class="card-title mb-0">
-                      768
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 d-flex">
-              <div class="card border-0 bg-success text-white text-center mb-grid w-100">
-                <div class="d-flex flex-row align-items-center h-100">
-                  <div class="card-icon d-flex align-items-center h-100 justify-content-center">
-                    <i data-feather="users"></i>
-                  </div>
-                  <div class="card-body">
-                    <div class="card-info-title">Sign Ups (this week)</div>
-                    <h3 class="card-title mb-0">
-                      1,258
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
 
         </div>
       </div>
     </div>
+    <!-- // Main Content -->
   </div>
 
   <!-- If you prefer jQuery these are the required scripts -->
@@ -264,8 +239,8 @@
   <script src="../assets/js/adminx.js"></script>
 
   <!-- If you prefer vanilla JS these are the only required scripts -->
-  <!-- script src="./dist/js/vendor.js"></script>
-    <script src="./dist/js/adminx.vanilla.js"></script-->
+  <!-- script src="../dist/js/vendor.js"></script>
+    <script src="../dist/js/adminx.vanilla.js"></script-->
 </body>
 
 </html>

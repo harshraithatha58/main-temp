@@ -1,20 +1,20 @@
 <?php
 require './_init.php';
-
+session_start();
 if (isset($_POST['LogIn'])) {
   $eMail = $_POST['eMail'];
   $PassWord = $_POST['PassWord'];
   $sql = "select password from `user` where email='$eMail'";
   $result = mysqli_query($conn, $sql);
   if (mysqli_num_rows($result) > 0) {
-      $row = mysqli_fetch_assoc($result);
-      $hashed_password = $row['password'];
-      $password_varification = Password_verify( $password , $hashed_password );
-      $_SESSION['session_email'] = $eMail;
-      
+    $row = mysqli_fetch_assoc($result);
+    $hashed_password = $row['password'];
+    $password_varification = Password_verify($password, $hashed_password);
+    $_SESSION['session_email'] = $eMail;
 
-      header ('location: ./dash_index.html');
-      exit( );
+
+    header('location: ./dash_index.html');
+    exit();
   }
 }
 ?>
@@ -68,7 +68,7 @@ if (isset($_POST['LogIn'])) {
 
           <div class="col-6 col-lg-9">
             <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a>
-            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a>
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">9966996699</span></a>
             <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a>
           </div>
 
@@ -89,7 +89,7 @@ if (isset($_POST['LogIn'])) {
     <div class="sticky-nav js-sticky-header">
       <div class="container position-relative">
         <div class="site-navigation text-center">
-          <a href="../index.html" class="logo menu-absolute m-0">Learner<span class="text-primary">.</span></a>
+          <a href="index.html" class="logo menu-absolute m-0">GIL</a>
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>
@@ -111,7 +111,7 @@ if (isset($_POST['LogIn'])) {
   </nav>
 
 
-  <div class="untree_co-hero inner-page overlay" style="background-image: url('../assets/images/img-school-5-min.jpg');">
+  <div class="untree_co-hero inner-page overlay">
     <div class="container">
       <div class="row align-items-center justify-content-center">
         <div class="col-12">

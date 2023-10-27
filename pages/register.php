@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // use LDAP\Result;
 
 require ('./_init.php');
@@ -106,7 +106,7 @@ if (isset($_POST['submit'])) {
 
           <div class="col-6 col-lg-9">
             <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a>
-            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">10 20 123 456</span></a>
+            <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">9966996699</span></a>
             <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">info@mydomain.com</span></a>
           </div>
 
@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
     <div class="sticky-nav js-sticky-header">
       <div class="container position-relative">
         <div class="site-navigation text-center">
-          <a href="../index.html" class="logo menu-absolute m-0">Learner<span class="text-primary">.</span></a>
+        <a href="index.html" class="logo menu-absolute m-0">GIL</a>
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>
@@ -179,21 +179,18 @@ if (isset($_POST['submit'])) {
 
               </div>
               <div class="col-12 mb-3">
-                <input type="text" class="form-control" placeholder="Full name" name="FullName">
+                <input type="text" class="form-control" placeholder="Full name" name="FullName" required>
               </div>
               <div class="col-12 mb-3">
-                <input type="text" class="form-control" placeholder="Email" name="eMail">
+                <input type="text" class="form-control" placeholder="Email" name="eMail" required>
               </div>
               <div class="col-12 mb-3">
-                <input type="password" class="form-control" placeholder="Password" name="passWord">
+                <input type="password" class="form-control" placeholder="Password" name="passWord" required minlength="8">
               </div>
               <div class="col-12 mb-3">
-                <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword">
+                <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword" required>
               </div>
-              <div class="col-12 mb-3">
-                <h6>Please Upload your CV / Resume here</h6>
-                <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>
-              </div>
+              
 
               <div class="col-12 mb-3">
                 <label class="control control--checkbox">

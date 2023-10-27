@@ -1,6 +1,5 @@
 <?php
 
-session_start() ;
 $server  = "localhost";
 $user = "root";
 $password = "";
@@ -10,6 +9,7 @@ $conn = mysqli_connect($server, $user, $password, $database);
 if (mysqli_connect_errno()) {
     die("error detected ... : ". mysqli_connect_error());
 }
+// session_start() ;
 // signu up page password hash
 function PasswordMatchAndHash($password, $repassword){
     if ($password == $repassword) {
