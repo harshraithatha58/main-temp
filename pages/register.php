@@ -1,60 +1,88 @@
 <?php
+// session_start();
+// // use LDAP\Result;
+
+// require('./_init.php');
+// echo $_SERVER['REQUEST_METHOD'];
+// if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+//   $FullName = $_POST['FullName'];
+//   $eMail = $_POST['eMail'];
+//   $passWord = $_POST['passWord'];
+//   $rePassword = $_POST['rePassword'];
+
+//   $emailExists = emailAlreadyExists($eMail, $conn);
+
+//   if (!$emailExists) {
+
+//     $hashedPassword = PasswordMatchAndHash($passWord, $rePassword); //$hash ma hasses password avi gyo 
+
+//     $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
+//     $result = mysqli_query($conn, $sql);
+//     $_SESSION['session_email'] = $eMail;
+
+
+//     // if (isset($_FILES['resume'])) {
+
+//     //   if (isPDF($_FILES['resume'])) {
+//     //     $file_name = $_FILES['resume']['name'];
+//     //     $file_type = $_FILES['resume']['type'];
+//     //     $file_tempname = $_FILES['resume']['tmp_name'];
+//     //     $file_size = $_FILES['resume']['size'];
+//     //     $trimmedEmail = strstr($eMail, '@', true);
+//     //     $finalFileName = "" . $trimmedEmail . "_" . $file_name;
+//     //     move_uploaded_file($file_tempname, "userData/cvResume/" . $finalFileName);
+//     //   }
+//       // else {
+//       //   header("Location: ./register.php");
+//       //   exit();
+//       // }
+//       // } else {
+//       //   header("Location: ./register.php");
+//       //   exit();
+//     }
+
+//     if ($result) {
+//       // $_SESSION['session_email'] = $eMail;
+//       header("Location: ./creation.php");
+//       // exit();
+//     } else {
+
+//       header("Location: ./register.php");
+//       // exit();
+//     }
+//   } else {
+//     header("Location: ./register.php");
+//     // exit();
+//   }
 session_start();
-// use LDAP\Result;
+require('./_init.php');
 
-require ('./_init.php');
-echo $_SERVER['REQUEST_METHOD'];
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $FullName = $_POST['FullName'];
+    $eMail = $_POST['eMail'];
+    $passWord = $_POST['passWord'];
+    $rePassword = $_POST['rePassword'];
 
-  $FullName = $_POST['FullName'];
-  $eMail = $_POST['eMail'];
-  $passWord = $_POST['passWord'];
-  $rePassword = $_POST['rePassword'];
+    $emailExists = emailAlreadyExists($eMail, $conn);
 
-  $emailExists = emailAlreadyExists($eMail, $conn);
+    if (!$emailExists) {
+        $hashedPassword = PasswordMatchAndHash($passWord, $rePassword);
+        $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword')";
+        $result = mysqli_query($conn, $sql);
 
-  if (!$emailExists) {
-
-    $hashedPassword = PasswordMatchAndHash($passWord, $rePassword); //$hash ma hasses password avi gyo 
-
-    $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$FullName', '$eMail','$hashedPassword' )";
-    $result = mysqli_query($conn, $sql);
-    $_SESSION['session_email'] = $eMail;
-    
-    
-    if (isset($_FILES['resume'])) {
-
-      if (isPDF($_FILES['resume'])) {
-        $file_name = $_FILES['resume']['name'];
-        $file_type = $_FILES['resume']['type'];
-        $file_tempname = $_FILES['resume']['tmp_name'];
-        $file_size = $_FILES['resume']['size'];
-        $trimmedEmail = strstr($eMail, '@', true);
-        $finalFileName = "" . $trimmedEmail . "_".$file_name;
-        move_uploaded_file($file_tempname, "userData/cvResume/" . $finalFileName);
-      } 
-      // else {
-      //   header("Location: ./register.php");
-      //   exit();
-      // }
-    // } else {
-    //   header("Location: ./register.php");
-    //   exit();
-    }
-
-    if ($result) {
-      $_SESSION['session_email'] = $eMail;
-      header("Location: ./creation.php");
-      exit();
+        if ($result) {
+            $_SESSION['session_email'] = $eMail;
+            header("Location: ./creation.php");
+            exit();
+        } else {
+            header("Location: ./register.php");
+            exit();
+        }
     } else {
-
-      header("Location: ./register.php");
-      exit();
+        header("Location: ./register.php");
+        exit();
     }
-  } else {
-    header("Location: ./register.php");
-    exit();
-  }
 }
 ?>
 <!doctype html>
@@ -129,7 +157,7 @@ if (isset($_POST['submit'])) {
     <div class="sticky-nav js-sticky-header">
       <div class="container position-relative">
         <div class="site-navigation text-center">
-        <a href="../index.html" class="logo menu-absolute m-0">GIL</a>
+          <a href="../index.html" class="logo menu-absolute m-0">GIL</a>
 
           <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
             <li><a href="../index.html">Home</a></li>
@@ -175,6 +203,8 @@ if (isset($_POST['submit'])) {
 
       <div class="row mb-5 justify-content-center">
         <div class="col-lg-5 mx-auto order-1" data-aos="fade-up" data-aos-delay="200">
+
+
           <form class="form-box" method="post">
             <div class="row">
               <div class="col-12 mb-3" style="height: 12px;">
@@ -192,7 +222,7 @@ if (isset($_POST['submit'])) {
               <div class="col-12 mb-3">
                 <input type="password" class="form-control" placeholder="Re-type Password" name="rePassword" required>
               </div>
-              
+
 
               <div class="col-12 mb-3">
                 <label class="control control--checkbox">

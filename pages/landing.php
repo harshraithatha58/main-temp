@@ -1,3 +1,30 @@
+<?php
+session_start();
+require './_init.php';
+// apply_job
+
+if (isset($_POST['apply_job'])) {
+    $jobId = "";
+    $jobId =   $_POST['jid'];
+    $email = $_SESSION['session_email'];
+
+    // Insert data into the 'applied' table
+    $sql = "INSERT INTO `applied` (`jid`, `email`) VALUES ('$jobId', '$email')";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        // Data inserted successfully
+        // echo "Data inserted successfully!";
+    } else {
+        // Error occurred while inserting data
+        echo "Error: " . mysqli_error($conn);
+    }
+}
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +55,8 @@
                     </div>
                     <input type="text" class="form-control" id="search" placeholder="Type to search...">
                 </div>
-            </form>
 
+            </form>
             <div class="d-flex flex-1 d-block d-md-none">
                 <a href="#" class="sidebar-toggle ml-3">
                     <i data-feather="menu"></i>
@@ -122,43 +149,82 @@
             </li>
             </ul>
         </div>
-        <div class="adminx-content">
-            <div class="adminx-main-content">
-                <div class="container-fluid">
-                    <div class="pb-3">
-                        <h1 align="center">
-                            <font color="blue">Available Jobs</font>
-                        </h1>
-                    </div>
+        <form method="Post">
 
-                    <!-- job -->
-                    
-                    <div class="row">
-                        <div class="col">
-                            <div class="card mb-grid w-100">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <h5 class="card-title mb-0">
-                                            <font color="blue">Title</font>
-                                        </h5>
-                                    </div>
-                                    <div>
-                                        <p>
-                                            Description
-                                        </p>
-                                        <p class="mb-0" data-aos="fade-up" data-aos-delay="300" align="right"><button type="submit" class="btn btn-primary" name="addjob">
-                                                Apply Now </button></p>
+            <div class="adminx-content">
+                <div class="adminx-main-content">
+                    <div class="container-fluid">
+                        <div class="pb-3">
+                            <h1 align="center">
+                                <font color="blue">Available Jobs</font>
+                            </h1>
+                        </div>
+
+                        <!-- job -->
+
+                        <?php
+                        // session_start();
+                        $email = "";
+                        // $email = $_SESSION[' '];
+                        // echo $email;
+
+
+                        // Fetch job data from the database
+                        $sql = "SELECT * FROM `jobs`";
+                        $result = mysqli_query($conn, $sql);
+
+                        // Check if there are any rows in the result set
+                        if (mysqli_num_rows($result) > 0) {
+                            // Loop through the rows and display job information
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                // global $jobId;
+                                $jobId = $row['jid'];
+                                $jobTitle = $row['jtitle'];
+                                $jobDescription = $row['description'];
+                        ?>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card mb-grid w-100">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between mb-3">
+                                                    <h5 class="card-title mb-0">
+                                                        <font color="blue"><?php echo $jobTitle; ?></font>
+                                                        <font color="red"><?php
+                                                                            global $jobId;
+                                                                            ?></font>
+                                                    </h5>
+                                                    <form method="post">
+
+                                                    </form>
+                                                </div>
+                                                <p align="left"><?php echo $jobDescription; ?></p>
+                                                <div class="mb-0" data-aos="fade-up" data-aos-delay="300" align="right">
+                                                    <form method="post">
+                                                        <input type="hidden" name="jid" value="<?php echo $jobId; ?>">
+                                                        <button type="submit" class="btn btn-primary" name="apply_job">Apply Now</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                        <?php
+                            }
+                        } else {
+                        }
 
-                    <!-- job -->
+                        // Close the database connection
+                        mysqli_close($conn);
+                        ?>
 
-                </div>
-            </div>
-        </div>
+        </form>
+
+
+        <!-- job -->
+
+    </div>
+    </div>
+    </div>
     </div>
     </div>
 

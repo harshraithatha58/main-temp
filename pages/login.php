@@ -2,15 +2,15 @@
 require './_init.php';
 session_start();
 if (isset($_POST['LogIn'])) {
-  $eMail = $_POST['eMail'];
+  $email = $_POST['email'];
   $PassWord = $_POST['PassWord'];
-  $sql = "select password from `user` where email='$eMail'";
+  $sql = "select password from `user` where email='$email'";
   $result = mysqli_query($conn, $sql);
   if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $hashed_password = $row['password'];
     $password_varification = Password_verify($password, $hashed_password);
-    $_SESSION['session_email'] = $eMail;
+    $_SESSION['session_email'] = $email;
 
 
     header('location: ./landing.php');
@@ -140,7 +140,7 @@ if (isset($_POST['LogIn'])) {
               <div class="col-12 mt-3">
               </div>
               <div class="col-12 mb-3">
-                <input type="email" class="form-control" placeholder="Email" name="eMail">
+                <input type="email" class="form-control" placeholder="email" name="email">
               </div>
               <div class="col-12 mb-3">
                 <input type="password" class="form-control" placeholder="Password" name="PassWord">

@@ -200,10 +200,10 @@ if (isset($_POST['create'])) {
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control" placeholder="State" name="State" required>
                             </div><br><br>
-                            <div class="col-12 mb-3">
+                            <!-- <div class="col-12 mb-3">
                                 <h6>Please Upload your CV / Resume here</h6>
                                 <input type="file" accept="application/pdf" class="form-control" placeholder="Upload your resume here" name="resume" required>    
-                            </div>
+                            </div> -->
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control" placeholder="Enter Your Domain | eg: Networking" name="domain" required>
                             </div>

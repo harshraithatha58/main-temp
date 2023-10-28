@@ -3,10 +3,14 @@
     session_start();
     require './_init.php';
     session_start();
-    if (isset($_POST['submit'])){
+    if (isset($_POST['addjob'])){
         $jobtitle = $_POST['jtitle'];
         $jobdescription = $_POST['jdescription'];
-        $sql = "INSERT INTO ``";
+        $sql = "INSERT INTO `jobs` ( `jtitle`, `description`) VALUES ('$jobtitle', '$jobdescription')";
+        $result = mysqli_query($conn , $sql);
+        header("Location: ./dash_index.php");
+        exit();
+
     }
 ?>
 <!DOCTYPE html>
